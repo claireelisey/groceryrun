@@ -47,7 +47,7 @@ const ChecklistEditor = ({ classes, checklistitem, onSave, history }) => (
                     {({ input }) => (
                     <TextField
                         className={classes.marginTop}
-                        label="Body"
+                        label="Add Item"
                         multiline
                         rows={2}
                         {...input}

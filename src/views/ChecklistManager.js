@@ -219,8 +219,8 @@ const styles = theme => ({
         bottom: 3 * theme.spacing.unit,
         right: 3 * theme.spacing.unit,
         [theme.breakpoints.down('xs')]: {
-        bottom: 2 * theme.spacing.unit,
-        right: 2 * theme.spacing.unit,
+            bottom: 2 * theme.spacing.unit,
+            right: 2 * theme.spacing.unit,
         },
     },
 });
@@ -230,7 +230,7 @@ const API = process.env.REACT_APP_API || 'http://localhost:3001';
 class ChecklistManager extends Component {
     state = {
         loading: true,
-        checklistitems: [],
+        checklistitems: []
     };
 
     componentDidMount() {
