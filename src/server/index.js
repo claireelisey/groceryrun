@@ -48,6 +48,13 @@ const Item = database.define('items', {
 });
 /* END item resourse added */
 
+/* START checklistitem resourse added */
+const ChecklistItem = database.define('checklistitems', {
+    title: Sequelize.STRING,
+    body: Sequelize.TEXT,
+});
+/* END checklistitem resourse added */
+
 
 
 
@@ -65,6 +72,13 @@ epilogue.resource({
 epilogue.resource({
     model: Item,
     endpoints: ['/items', '/items/:id'],
+});
+/* END item resourse added */
+
+/* START checklistitem resourse added */
+epilogue.resource({
+    model: ChecklistItem,
+    endpoints: ['/checklistitems', '/checklistitems/:id'],
 });
 /* END item resourse added */
 

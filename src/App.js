@@ -10,6 +10,7 @@ import AppHeader from './components/AppHeader';
 import Home from './views/Home';
 import PostsManager from './views/PostsManager';
 import ItemsManager from './views/ItemsManager';
+import ChecklistManager from './views/ChecklistManager';
 
 const styles = theme => ({
     main: {
@@ -31,6 +32,7 @@ const App = ({ classes }) => (
             <Route exact path="/" component={Home} />
             <SecureRoute exact path="/posts" component={PostsManager} />
             <SecureRoute exact path="/items" component={ItemsManager} />
+            <SecureRoute exact path="/checklistitems" component={ChecklistManager} />
             <Route path="/implicit/callback" component={ImplicitCallback} />
         </main>
 

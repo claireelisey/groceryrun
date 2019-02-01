@@ -31,18 +31,9 @@ const styles = theme => ({
     },
 });
 
+const ChecklistEditor = ({ classes, checklistitem, onSave, history }) => (
 
-
-
-/* START 'post' changed to 'item' */
-const ItemEditor = ({ classes, item, onSave, history }) => (
-
-    <Form initialValues={item} onSubmit={onSave}>
-{/*     END 'post' changed to 'item' */}
-
-
-
-
+    <Form initialValues={checklistitem} onSubmit={onSave}>
         {({ handleSubmit }) => (
         <Modal
             className={classes.modal}
@@ -52,9 +43,6 @@ const ItemEditor = ({ classes, item, onSave, history }) => (
             <Card className={classes.modalCard}>
             <form onSubmit={handleSubmit}>
                 <CardContent className={classes.modalCardContent}>
-                <Field name="title">
-                    {({ input }) => <TextField label="Title" autoFocus {...input} />}
-                </Field>
                 <Field name="body">
                     {({ input }) => (
                     <TextField
@@ -82,4 +70,4 @@ const ItemEditor = ({ classes, item, onSave, history }) => (
 export default compose(
     withRouter,
     withStyles(styles),
-)(ItemEditor);
+)(ChecklistEditor);
