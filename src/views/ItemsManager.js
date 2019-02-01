@@ -17,10 +17,10 @@ import moment from 'moment';
 import { find, orderBy } from 'lodash';
 import { compose } from 'recompose';
 
-import PostEditor from '../components/PostEditor';
+import ItemEditor from '../components/ItemEditor';
 
 const styles = theme => ({
-    posts: {
+    items: {
         marginTop: 2 * theme.spacing.unit,
     },
     fab: {
@@ -28,22 +28,22 @@ const styles = theme => ({
         bottom: 3 * theme.spacing.unit,
         right: 3 * theme.spacing.unit,
         [theme.breakpoints.down('xs')]: {
-            bottom: 2 * theme.spacing.unit,
-            right: 2 * theme.spacing.unit,
+        bottom: 2 * theme.spacing.unit,
+        right: 2 * theme.spacing.unit,
         },
     },
 });
 
 const API = process.env.REACT_APP_API || 'http://localhost:3001';
 
-class PostsManager extends Component {
+class ItemsManager extends Component {
     state = {
         loading: true,
-        posts: [],
+        items: [],
     };
 
     componentDidMount() {
-        this.getPosts();
+        this.getItems();
     }
 
     async fetch(method, endpoint, body) {
@@ -63,35 +63,35 @@ class PostsManager extends Component {
         }
     }
 
-    async getPosts() {
-        this.setState({ loading: false, posts: await this.fetch('get', '/posts') });
+    async getItems() {
+        this.setState({ loading: false, items: await this.fetch('get', '/items') });
     }
 
-    savePost = async (post) => {
-        if (post.id) {
-            await this.fetch('put', `/posts/${post.id}`, post);
+    saveItem = async (item) => {
+        if (item.id) {
+            await this.fetch('put', `/items/${item.id}`, item);
         } else {
-            await this.fetch('post', '/posts', post);
+            await this.fetch('post', '/items', item);
         }
 
         this.props.history.goBack();
-        this.getPosts();
+        this.getItems();
     }
 
-    async deletePost(post) {
-        if (window.confirm(`Are you sure you want to delete "${post.title}"`)) {
-            await this.fetch('delete', `/posts/${post.id}`);
-            this.getPosts();
+    async deleteItem(item) {
+        if (window.confirm(`Are you sure you want to delete "${item.title}"`)) {
+            await this.fetch('delete', `/items/${item.id}`);
+            this.getItems();
         }
     }
 
-    renderPostEditor = ({ match: { params: { id } } }) => {
+    renderItemEditor = ({ match: { params: { id } } }) => {
         if (this.state.loading) return null;
-        const post = find(this.state.posts, { id: Number(id) });
+        const item = find(this.state.items, { id: Number(id) });
 
-        if (!post && id !== 'new') return <Redirect to="/posts" />;
+        if (!item && id !== 'new') return <Redirect to="/items" />;
 
-        return <PostEditor post={post} onSave={this.savePost} />;
+        return <ItemEditor item={item} onSave={this.saveItem} />;
     };
 
     render() {
@@ -100,18 +100,19 @@ class PostsManager extends Component {
         return (
 
             <Fragment>
-                <Typography variant="display1">Grocery Lists</Typography>
-                {this.state.posts.length > 0 ? (
-                    <Paper elevation={1} className={classes.posts}>
+                <Typography variant="display1">Items Manager</Typography>
+
+                {this.state.items.length > 0 ? (
+                    <Paper elevation={1} className={classes.items}>
                         <List>
-                        {orderBy(this.state.posts, ['updatedAt', 'title'], ['desc', 'asc']).map(post => (
-                            <ListItem key={post.id} button component={Link} to={`/posts/${post.id}`}>
+                        {orderBy(this.state.items, ['updatedAt', 'title'], ['desc', 'asc']).map(item => (
+                            <ListItem key={item.id} button component={Link} to={`/items/${item.id}`}>
                             <ListItemText
-                                primary={post.title}
-                                secondary={post.updatedAt && `Updated ${moment(post.updatedAt).fromNow()}`}
+                                primary={item.title}
+                                secondary={item.updatedAt && `Updated ${moment(item.updatedAt).fromNow()}`}
                             />
                             <ListItemSecondaryAction>
-                                <IconButton onClick={() => this.deletePost(post)} color="inherit">
+                                <IconButton onClick={() => this.deleteItem(item)} color="inherit">
                                 <DeleteIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
@@ -120,19 +121,21 @@ class PostsManager extends Component {
                         </List>
                     </Paper>
                 ) : (
-                !this.state.loading && <Typography variant="subheading">No posts to display</Typography>
+                !this.state.loading && <Typography variant="subheading">No items to display</Typography>
                 )}
+
                 <Button
                     variant="fab"
                     color="secondary"
                     aria-label="add"
                     className={classes.fab}
                     component={Link}
-                    to="/posts/new"
+                    to="/items/new"
                     >
                     <AddIcon />
                 </Button>
-                <Route exact path="/posts/:id" render={this.renderPostEditor} />
+
+                <Route exact path="/items/:id" render={this.renderItemEditor} />
             </Fragment>
             
         );
@@ -143,4 +146,4 @@ export default compose(
     withAuth,
     withRouter,
     withStyles(styles),
-)(PostsManager);
+)(ItemsManager);

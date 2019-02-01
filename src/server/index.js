@@ -38,12 +38,38 @@ const Post = database.define('posts', {
     body: Sequelize.TEXT,
 });
 
+
+
+
+/* START item resourse added */
+const Item = database.define('items', {
+    title: Sequelize.STRING,
+    body: Sequelize.TEXT,
+});
+/* END item resourse added */
+
+
+
+
 epilogue.initialize({ app, sequelize: database });
 
 epilogue.resource({
     model: Post,
     endpoints: ['/posts', '/posts/:id'],
 });
+
+
+
+
+/* START item resourse added */
+epilogue.resource({
+    model: Item,
+    endpoints: ['/items', '/items/:id'],
+});
+/* END item resourse added */
+
+
+
 
 const port = process.env.SERVER_PORT || 3001;
 
