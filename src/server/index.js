@@ -50,7 +50,6 @@ const Item = database.define('items', {
 
 /* START checklistitem resourse added */
 const ChecklistItem = database.define('checklistitems', {
-    title: Sequelize.STRING,
     body: Sequelize.TEXT,
 });
 /* END checklistitem resourse added */

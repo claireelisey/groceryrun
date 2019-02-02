@@ -15,7 +15,7 @@ import {
     Checkbox
 } from '@material-ui/core';
 import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
-import { find, orderBy } from 'lodash';
+import { find } from 'lodash';
 import { compose } from 'recompose';
 
 import ChecklistEditor from '../components/ChecklistEditor';
@@ -38,9 +38,11 @@ const styles = theme => ({
 const API = process.env.REACT_APP_API || 'http://localhost:3001';
 
 class ChecklistManager extends Component {
+
     state = {
         loading: true,
-        checklistitems: []
+        checklistitems: [],
+        checked: [0]
     };
 
     componentDidMount() {
