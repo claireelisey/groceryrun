@@ -31,6 +31,7 @@ const styles = theme => ({
     },
 });
 
+
 const ChecklistEditor = ({ classes, checklistitem, onSave, history }) => (
 
     <Form initialValues={checklistitem} onSubmit={onSave}>

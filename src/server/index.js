@@ -51,6 +51,7 @@ const Item = database.define('items', {
 /* START checklistitem resourse added */
 const ChecklistItem = database.define('checklistitems', {
     body: Sequelize.TEXT,
+/*     checkbox: Sequelize.BOOLEAN */
 });
 /* END checklistitem resourse added */
 

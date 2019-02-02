@@ -19,6 +19,7 @@ import { find } from 'lodash';
 import { compose } from 'recompose';
 
 import ChecklistEditor from '../components/ChecklistEditor';
+import ToDo from '../components/ToDo';
 
 const styles = theme => ({
     checklistitems: {
@@ -41,8 +42,16 @@ class ChecklistManager extends Component {
 
     state = {
         loading: true,
-        checklistitems: [],
-        checked: [0]
+        checklistitems: [
+            { body: 'fruit', checkbox: true },
+        ],
+        checked: [0],
+        todos: [
+            { description: 'Walk the cat', isCompleted: true },
+            { description: 'Throw the dishes away', isCompleted: false },
+            { description: 'Buy new dishes', isCompleted: false }
+        ],
+        newTodoDescription: ''
     };
 
     componentDidMount() {
@@ -92,7 +101,7 @@ class ChecklistManager extends Component {
         if (this.state.loading) return null;
         const checklistitem = find(this.state.checklistitems, { id: Number(id) });
 
-        if (!checklistitem && id !== 'new') return <Redirect to="/items" />;
+        if (!checklistitem && id !== 'new') return <Redirect to="/checklistitems" />;
 
         return <ChecklistEditor checklistitem={checklistitem} onSave={this.saveChecklistItem} />;
     };
@@ -109,9 +118,46 @@ class ChecklistManager extends Component {
         }
 
         this.setState({
-        checked: newChecked,
+            checked: newChecked,
         });
     };
+
+   /*  handleToggle(index) {
+        const checklistitems = this.state.checklistitems.slice();
+        const checklistitem = checklistitems[index];
+        checklistitem.checked = checklistitem.checked ? false : true;
+        this.setState({ checklistitems: checklistitems });
+    } */
+
+
+
+
+
+
+    /* this was added */
+    handleChange(e) {
+        this.setState({ newTodoDescription: e.target.value })
+    }
+    
+    handleSubmit(e) {
+        e.preventDefault();
+        if (!this.state.newTodoDescription) { return }
+        const newTodo = { description: this.state.newTodoDescription, isCompleted: false };
+        this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: '' }); 
+    }
+      
+    toggleComplete(index) {
+        const todos = this.state.todos.slice();
+        const todo = todos[index];
+        todo.isCompleted = todo.isCompleted ? false : true;
+        this.setState({ todos: todos });
+    }
+
+
+
+
+
+
 
     render() {
 
@@ -128,9 +174,9 @@ class ChecklistManager extends Component {
 
                         <List>
                             { this.state.checklistitems.map( (checklistitem, index) => 
-                                <ListItem key={checklistitem.id} role={undefined} dense button onClick={this.handleToggle(checklistitem.id)} component={Link} to={`/checklistitems/${checklistitem.id}`}>
+                                <ListItem key={checklistitem.id} button component={Link} to={`/checklistitems/${checklistitem.id}`}>
                                     <Checkbox
-                                    checked={this.state.checked}
+                                    checked={this.props.handleToggle}
                                     tabIndex={-1}
                                     disableRipple
                                     />
@@ -162,6 +208,29 @@ class ChecklistManager extends Component {
                 </Button>
                 
                 <Route exact path="/checklistitems/:id" render={this.renderChecklistEditor} />
+
+
+
+
+
+
+                {/* this was added */}
+                <ul>
+                    { this.state.todos.map( (todo, index) => 
+                    <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+                    )}
+                </ul>
+                <form onSubmit={ (e) => this.handleSubmit(e) }>
+                    <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e) } />
+                    <input type="submit" />
+                </form>  
+
+
+
+
+
+
+
             </Fragment>
 
         );
