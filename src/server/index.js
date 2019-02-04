@@ -58,6 +58,7 @@ const ChecklistItem = database.define('checklistitems', {
 
 
 
+
 epilogue.initialize({ app, sequelize: database });
 
 epilogue.resource({
@@ -82,7 +83,8 @@ epilogue.resource({
 });
 /* END item resourse added */
 
-
+/* Item.hasMany(ChecklistItem);
+ChecklistItem.belongsTo(Item); */
 
 
 const port = process.env.SERVER_PORT || 3001;
