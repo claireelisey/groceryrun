@@ -14,7 +14,7 @@ import {
     ListItemSecondaryAction,
     Checkbox
 } from '@material-ui/core';
-import { Delete as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
+import { Delete as DeleteIcon, Add as AddIcon, Create as CreateIcon } from '@material-ui/icons';
 import { find } from 'lodash';
 import { compose } from 'recompose';
 
@@ -174,14 +174,18 @@ class ChecklistManager extends Component {
 
                         <List>
                             { this.state.checklistitems.map( (checklistitem, index) => 
-                                <ListItem key={checklistitem.id} button component={Link} to={`/checklistitems/${checklistitem.id}`}>
+                                <ListItem key={checklistitem.id} button>
                                     <Checkbox
+                                    onClick={this.handleToggle(checklistitem)}
                                     checked={this.props.handleToggle}
                                     tabIndex={-1}
                                     disableRipple
                                     />
                                     <ListItemText primary={checklistitem.body} />
                                     <ListItemSecondaryAction>
+                                    <IconButton key={checklistitem.id} button component={Link} to={`/checklistitems/${checklistitem.id}`} color="inherit">
+                                            <CreateIcon />
+                                        </IconButton>
                                         <IconButton onClick={() => this.deleteChecklistItem(checklistitem)} color="inherit">
                                             <DeleteIcon />
                                         </IconButton>
