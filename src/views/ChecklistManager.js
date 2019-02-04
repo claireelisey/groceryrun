@@ -19,7 +19,6 @@ import { find } from 'lodash';
 import { compose } from 'recompose';
 
 import ChecklistEditor from '../components/ChecklistEditor';
-import ToDo from '../components/ToDo';
 
 const styles = theme => ({
     checklistitems: {
@@ -45,13 +44,7 @@ class ChecklistManager extends Component {
         checklistitems: [
             { body: 'fruit', checkbox: true },
         ],
-        checked: [0],
-        todos: [
-            { description: 'Walk the cat', isCompleted: true },
-            { description: 'Throw the dishes away', isCompleted: false },
-            { description: 'Buy new dishes', isCompleted: false }
-        ],
-        newTodoDescription: ''
+        checked: [0]
     };
 
     componentDidMount() {
@@ -122,51 +115,15 @@ class ChecklistManager extends Component {
         });
     };
 
-   /*  handleToggle(index) {
-        const checklistitems = this.state.checklistitems.slice();
-        const checklistitem = checklistitems[index];
-        checklistitem.checked = checklistitem.checked ? false : true;
-        this.setState({ checklistitems: checklistitems });
-    } */
-
-
-
-
-
-
-    /* this was added */
-    handleChange(e) {
-        this.setState({ newTodoDescription: e.target.value })
-    }
-    
-    handleSubmit(e) {
-        e.preventDefault();
-        if (!this.state.newTodoDescription) { return }
-        const newTodo = { description: this.state.newTodoDescription, isCompleted: false };
-        this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: '' }); 
-    }
-      
-    toggleComplete(index) {
-        const todos = this.state.todos.slice();
-        const todo = todos[index];
-        todo.isCompleted = todo.isCompleted ? false : true;
-        this.setState({ todos: todos });
-    }
-
-
-
-
-
-
-
     render() {
 
         const { classes } = this.props;
 
         return (
+
             <Fragment>
 
-                <Typography variant="display1">Checklist Manager</Typography>
+                <Typography variant="display1">Grocery List</Typography>
 
                 {this.state.checklistitems.length > 0 ? (
 
@@ -212,28 +169,6 @@ class ChecklistManager extends Component {
                 </Button>
                 
                 <Route exact path="/checklistitems/:id" render={this.renderChecklistEditor} />
-
-
-
-
-
-
-                {/* this was added */}
-                <ul>
-                    { this.state.todos.map( (todo, index) => 
-                    <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
-                    )}
-                </ul>
-                <form onSubmit={ (e) => this.handleSubmit(e) }>
-                    <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e) } />
-                    <input type="submit" />
-                </form>  
-
-
-
-
-
-
 
             </Fragment>
 

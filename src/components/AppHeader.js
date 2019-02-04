@@ -22,9 +22,9 @@ const AppHeader = ({ classes }) => (
                 GroceryRun
             </Typography>
             <Button color="inherit" component={Link} to="/">Home</Button>
-            <Button color="inherit" component={Link} to="/posts">Grocery Lists</Button>
-            <Button color="inherit" component={Link} to="/items">Items Manager</Button>
-            <Button color="inherit" component={Link} to="/checklistitems">Checklist Manager</Button>
+{/*             <Button color="inherit" component={Link} to="/posts">Grocery Lists</Button>
+            <Button color="inherit" component={Link} to="/items">Items Manager</Button> */}
+            <Button color="inherit" component={Link} to="/checklistitems">Grocery List</Button>
             <div className={classes.flex} />
             <LoginButton />
         </Toolbar>
