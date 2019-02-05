@@ -1,0 +1,29 @@
+{
+    "development": {
+        "username": "claire",
+        "password": null,
+        "database": "groceryrun-dev",
+        "host": "127.0.0.1",
+        "dialect": "postgres",
+        "logging": false,
+        "operatorsAliases": false
+    },
+    "test": {
+        "username": "claire",
+        "password": null,
+        "database": "groceryrun-test",
+        "host": "127.0.0.1",
+        "dialect": "postgres",
+        "logging": false,
+        "operatorsAliases": false
+    },
+    "production": {
+        "username": "claire",
+        "password": null,
+        "database": "groceryrun",
+        "host": "127.0.0.1",
+        "dialect": "postgres",
+        "logging": false,
+        "operatorsAliases": false
+    }
+}
