@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
+    AppBar,
     Button,
     Toolbar,
     Typography,
     withStyles,
 } from '@material-ui/core';
-import { AppBar } from '@material-ui/core/AppBar/AppBar';
 import LoginButton from './LoginButton';
 
 const styles = {
