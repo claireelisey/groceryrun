@@ -42,7 +42,7 @@ class ChecklistManager extends Component {
     state = {
         loading: true,
         checklistitems: [
-            { body: 'fruit', checkbox: true },
+            { body: '', checkbox: false },
         ],
         checked: [0]
     };
