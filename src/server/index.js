@@ -30,7 +30,7 @@ app.use(async (req, res, next) => {
 
 const database = new Sequelize({
     dialect: 'sqlite',
-    storage: './test.sqlite',
+    storage: './groceryrun.db',
 });
 
 const Post = database.define('posts', {

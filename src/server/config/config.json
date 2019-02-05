@@ -1,0 +1,11 @@
+{
+    "development": {
+        "database": "groceryrun",
+        "dialect": "sqlite"
+    },
+    "production": {
+        "database": "groceryrun_production",
+        "dialect": "postgres",
+        "use_env_variable": "DATABASE_URL"
+    }
+}
